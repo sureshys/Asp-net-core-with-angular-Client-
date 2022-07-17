@@ -1,0 +1,80 @@
+
+<div class="container">
+  <div class="bank-container">
+    <div class="bank-form">
+      <form #Bankform="ngForm"(ngSubmit)="onSubmit(); Bankform.resetForm()">
+        <div class="form-group">
+          <label for="">Bank Name And Branch</label>
+          <input type="text" required #bankName="ngModel"
+          [class.is-invalid]="bankName.invalid && bankName.touched"
+          name="BankName" [(ngModel)]="bank.bankName">
+          <small class="text-danger" [class.d-none]="bankName.valid || bankName.untouched">Bank Name And Branch Required</small>
+        </div>
+        <div class="form-group">
+          <label for="">Bank Account Holder Name</label>
+          <input type="text" required #accountHolderName="ngModel"
+          [class.is-invalid]="accountHolderName.invalid && accountHolderName.touched"
+          name="AccountHolderName" [(ngModel)]="bank.accountHolderName">
+          <small class="text-danger" [class.d-none]="accountHolderName.valid || accountHolderName.untouched">Bank Account Holder Name Required</small>
+        </div>
+        <div class="form-group">
+          <label for="">Bank Account Number</label>
+          <input type="text" required #bankAccountNumber="ngModel" pattern="^\d{15}$"
+          [class.is-invalid]="bankAccountNumber.invalid && bankAccountNumber.touched"
+          name="BankAccountNumber"[(ngModel)]="bank.bankAccountNumber">
+          <!-- <small class="text-danger" [class.d-none]="cardNumber.valid || cardNumber.untouched">Card Number Required And Must Be 8 Digits</small> -->
+          <div *ngIf="bankAccountNumber.errors && (bankAccountNumber.invalid || bankAccountNumber.touched)">
+          <small class="text-danger" *ngIf="bankAccountNumber.errors?.['required'] && bankAccountNumber.touched">Account Number Required</small>
+          <small class="text-danger" *ngIf="bankAccountNumber.errors?.['pattern']">Bank Account Number Must Be 15 Digits</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">IFSC Code</label>
+          <input type="text" required #ifscCode="ngModel"
+          [class.is-invalid]="ifscCode.invalid && ifscCode.touched"
+          name="IFSCCode"[(ngModel)]="bank.ifscCode">
+          <small class="text-danger" [class.d-none]="ifscCode.valid || ifscCode.untouched">IFSC Code Required </small>
+        </div>
+        <div class="form-group">
+          <label for="">CIF No</label>
+          <input type="text"  #cifNo="ngModel"
+          [class.is-invalid]="cifNo.invalid && cifNo.touched"
+          name="CIFNo"[(ngModel)]="bank.cifNo">
+          <!-- <small class="text-danger" [class.d-none]="cifNo.valid || cifNo.untouched">CIF No Required </small> -->
+        </div>
+        <div class="form-group">
+          <label for="">MICR Code</label>
+          <input type="text" #micrCode="ngModel"
+          [class.is-invalid]="micrCode.invalid && micrCode.touched"
+          name="MICRCode"[(ngModel)]="bank.micrCode">
+          <!-- <small class="text-danger" [class.d-none]="micrCode.valid || micrCode.untouched">MICR Code Required </small> -->
+        </div>
+        <div class="form-group">
+          <label for="">Account Type</label>
+          <input type="text" required #accountType="ngModel"
+          [class.is-invalid]="accountType.invalid && accountType.touched"
+          name="AccountType"[(ngModel)]="bank.accountType">
+          <small class="text-danger" [class.d-none]="accountType.valid || accountType.untouched">Account Type Required </small>
+        </div>
+        <div class="form-group">
+          <input class="saveBtn"type = "submit" value = "Save">
+          <button class="cancelBtn" (click)="onCancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <div class="bank-grid">
+    <div  class="bank-row" *ngFor="let bank of banks">
+      <div (click)="populateForm(bank)" class="bank-row-details">
+      <span>{{bank.bankName}}</span>
+      <span>{{bank.accountHolderName}}</span>
+      <span>{{bank.bankAccountNumber}}</span>
+      </div>
+
+      <div class="bank-row-action">
+        <a (click)="deleteCard(bank.id)"><i class="fa-solid fa-trash-can"></i></a>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</div>

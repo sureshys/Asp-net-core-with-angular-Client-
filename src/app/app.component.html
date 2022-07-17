@@ -1,68 +1,13 @@
 <div class="container">
-  <h1>ANGULAR + ASP.NET CORE CRUD</h1>
-
-  <div class="card-container">
-    <div class="cards-form">
-      <form #form="ngForm"(ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="">Card Name</label>
-          <input type="text" required #cardHolderName="ngModel"
-          [class.is-invalid]="cardHolderName.invalid && cardHolderName.touched"
-          name="CardName" [(ngModel)]="card.cardHolderName">
-          <small class="text-danger" [class.d-none]="cardHolderName.valid || cardHolderName.untouched">Card Holder Name Required</small>
-        </div>
-        <div class="form-group">
-          <label for="">Card Number</label>
-          <input type="text" required #cardNumber="ngModel" pattern="^\d{8}$"
-          [class.is-invalid]="cardNumber.invalid && cardNumber.touched"
-          name="CardNumber"[(ngModel)]="card.cardNumber">
-          <!-- <small class="text-danger" [class.d-none]="cardNumber.valid || cardNumber.untouched">Card Number Required And Must Be 8 Digits</small> -->
-          <div *ngIf="cardNumber.errors && (cardNumber.invalid || cardNumber.touched)">
-          <small class="text-danger" *ngIf="cardNumber.errors?.['required']">Card Number Required</small>
-          <small class="text-danger" *ngIf="cardNumber.errors?.['pattern']">Card Number Must Be 8 Digits</small>
-          </div>
-        </div>
-        <div class="form-group form-group-inline">
-          <div>
-            <label for="">CVV</label>
-            <input type="text" required #cvv="ngModel"
-            [class.is-invalid]="cvv.invalid && cvv.touched"
-             name="CVV"[(ngModel)]="card.cvv">
-             <small class="text-danger" [class.d-none]="cvv.valid || cvv.untouched">CVV Required</small>
-          </div>
-          <div>
-            <label for="">Expiry Month</label>
-            <input type="text" required #expiryMonth="ngModel"
-            [class.is-invalid]="expiryMonth.invalid && expiryMonth.touched"
-             name="ExpiryMonth"[(ngModel)]="card.expiryMonth">
-             <small class="text-danger" [class.d-none]="expiryMonth.valid || expiryMonth.untouched">Expiry Month Required</small>
-          </div>
-          <div>
-            <label for="">Expiry Year</label>
-            <input type="text" required #expiryYear="ngModel"
-            [class.is-invalid]="expiryYear.invalid && expiryYear.touched"
-             name="ExpiryYear"[(ngModel)]="card.expiryYear">
-             <small class="text-danger" [class.d-none]="expiryYear.valid || expiryYear.untouched">Expiry Year Required</small>
-          </div>
-        </div>
-        <div class="form-group">
-          <button>SAVE</button>
-        </div>
-      </form>
-    </div>
-    <div class="cards-grid">
-
-    <div  class="card-row" *ngFor="let card of cards">
-      <div (click)="populateForm(card)" class="card-row-details">
-      <span>{{card.cardHolderName}}</span>
-      <span>{{card.cardNumber}}</span>
-      </div>
-
-      <div class="card-row-action">
-        <a (click)="deleteCard(card.id)"><i class="fa-solid fa-trash-can"></i></a>
-      </div>
-
-    </div>
-  </div>
-  </div>
+<h2 style="text-align: center">ANGULAR + ASP.NET CORE CRUD</h2>
+<div>
+  <ul>
+    <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/banks" routerLinkActive="active">Banks</a></li>
+    <li><a class="active" routerLink="/cards" routerLinkActive="active">Cards</a></li>
+    <li><a routerLink="/fds" routerLinkActive="active">Fixed Deposits</a></li>
+    <li><a routerLink="/loans" routerLinkActive="active">Loans</a></li>
+  </ul>
+</div>
+<router-outlet></router-outlet>
 </div>
